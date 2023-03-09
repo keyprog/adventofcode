@@ -1,0 +1,5 @@
+root: bbb + sjmn
+bbb: ccc - humn
+ccc: 20
+humn: 5
+sjmn: 12

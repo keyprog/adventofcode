@@ -1,0 +1,9 @@
+    AA1 AA2 BB1 BB2 CC1 CC2 DD1 DD2
+AA1 x   x   0   0
+AA2 0   x   x   x
+BB1 0   0   x   x
+BB2 x   x   13  x
+CC1 x   x   0   0
+CC2 x   x   x   x
+DD1 0   0   x   x
+DD2 x   x   x   x
