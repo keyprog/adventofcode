@@ -3,9 +3,9 @@ namespace ic;
 class ICMemory
 {
     private long[] memory;
-    public ICMemory(IEnumerable<long> program)
+    public ICMemory(IEnumerable<long> code)
     {
-        memory = program.ToArray();
+        memory = code.ToArray();
     }
 
     public long this[long address]
@@ -38,10 +38,8 @@ class ICMemory
     {
         for (int i = 0; i < memory.Length; ++i)
         {
-            if (i > 0)
-                writer.Write(',');
-            writer.Write(memory[i].ToString());
-
+            if (i > 0) writer.Write(',');
+            writer.Write(Convert.ToString(memory[i]));
         }
         writer.WriteLine();
     }

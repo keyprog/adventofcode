@@ -1,5 +1,7 @@
 namespace ic;
-enum ParamMode { Ref, Val, Rel }
+
+enum ParamMode { Reference = 0, Value = 1, Relative = 2 }
+
 struct Param
 {
     private readonly ICMemory memory;
@@ -14,28 +16,22 @@ struct Param
         this.mode = mode;
     }
 
-    public static Param Ld(ICMemory memory, ICCpu cpu, Queue<ParamMode> modes)
-    {
-        return new Param(memory, cpu, cpu.Ld(memory), modes.Ld());
-    }
+    public static Param Load(ICMemory memory, ICCpu cpu, Queue<ParamMode> modes)
+        => new Param(memory, cpu, cpu.Ld(memory), modes.Load());
 
-    public static (Param, Param) Ld2(ICMemory memory, ICCpu cpu, Queue<ParamMode> modes)
-    {
-        return (Ld(memory, cpu, modes), Ld(memory, cpu, modes));
-    }
+    public static (Param, Param) Load2(ICMemory memory, ICCpu cpu, Queue<ParamMode> modes)
+        => (Load(memory, cpu, modes), Load(memory, cpu, modes));
 
-    public static (Param, Param, Param) Ld3(ICMemory memory, ICCpu cpu, Queue<ParamMode> modes)
-    {
-        return (Ld(memory, cpu, modes), Ld(memory, cpu, modes), Ld(memory, cpu, modes));
-    }
+    public static (Param, Param, Param) Load3(ICMemory memory, ICCpu cpu, Queue<ParamMode> modes)
+        => (Load(memory, cpu, modes), Load(memory, cpu, modes), Load(memory, cpu, modes));
 
     public long Get()
     {
         return mode switch
         {
-            ParamMode.Ref => memory[paramValue],
-            ParamMode.Val => paramValue,
-            ParamMode.Rel => memory[paramValue + cpu.RB],
+            ParamMode.Reference => memory[paramValue],
+            ParamMode.Value => paramValue,
+            ParamMode.Relative => memory[paramValue + cpu.RB],
             _ => throw new NotSupportedException()
         };
     }
@@ -44,12 +40,12 @@ struct Param
     {
         switch (mode)
         {
-            case ParamMode.Val:
+            case ParamMode.Value:
                 throw new ApplicationException("Set doesn't support value mode");
-            case ParamMode.Ref:
+            case ParamMode.Reference:
                 memory[paramValue] = value;
                 break;
-            case ParamMode.Rel:
+            case ParamMode.Relative:
                 memory[paramValue + cpu.RB] = value;
                 break;
             default:
@@ -60,12 +56,8 @@ struct Param
 
 static class ParamModeExtensions
 {
-    public static ParamMode Ld(this Queue<ParamMode> q)
-    {
-        if (q.TryDequeue(out ParamMode mode))
-            return mode;
-        return ParamMode.Ref;
-    }
+    public static ParamMode Load(this Queue<ParamMode> q)
+       => q.TryDequeue(out ParamMode mode) ? mode : ParamMode.Reference;
 }
 
 interface ICOperation
@@ -91,10 +83,7 @@ record MultiplyOp((Param p1, Param p2, Param resAddr) pars) : ICOperation
 
 record HaltOp : ICOperation
 {
-    public void Exec(ICComp c)
-    {
-        c.Cpu.State = ICCompState.Terminated;
-    }
+    public void Exec(ICComp c) => c.Cpu.State = ICCompState.Terminated;
 }
 
 record InputOp(Param destAddr) : ICOperation
@@ -104,10 +93,7 @@ record InputOp(Param destAddr) : ICOperation
 
 record OutputOp(Param srcAddr) : ICOperation
 {
-    public void Exec(ICComp c)
-    {
-        c.Output.Write(srcAddr.Get());
-    }
+    public void Exec(ICComp c) => c.Output.Write(srcAddr.Get());
 }
 
 record JumpIfTrueOp((Param flag, Param jumpTo) pars) : ICOperation

@@ -2,40 +2,43 @@ namespace ic;
 
 class ICComp
 {
-    public ICCpu Cpu { get; private set; }
-    public ICMemory Memory { get; private set; }
-    public ICStream Input { get; private set; }
-    public ICStream Output { get; private set; }
-    private ICDecoder decoder = new();
+    public ICCpu Cpu { get; init; }
+    public ICMemory Memory { get; init; }
+    public ICStream Input { get; init; }
+    public ICStream Output { get; init; }
+    public ICDecoder Decoder { get; init; }
 
-    private ICComp(ICMemory memory, ICStream? input, ICStream? output)
+    private ICComp(ICCpu cpu, ICMemory memory, ICStream input, ICStream output, ICDecoder decoder)
     {
-        this.Memory = memory ?? throw new ArgumentNullException(nameof(memory));
-        this.decoder = new ICDecoder();
-        this.Cpu = new ICCpu { IP = 0, State = ICCompState.Running };
-        this.Input = input ?? new ICStream();
-        this.Output = output ?? new ICStream();
+        this.Cpu = cpu;
+        this.Memory = memory;
+        this.Decoder = decoder;
+        this.Input = input;
+        this.Output = output;
     }
 
-    public static ICComp Load(long[] program, ICStream? input = null, ICStream? output = null)
-    {
-        var memory = new ICMemory(program);
-        return new ICComp(memory, input, output);
-    }
+    public static ICComp Load(long[] code, ICStream? input = null, ICStream? output = null,
+                                ICDecoder? decoder = null)
+        => new ICComp(new ICCpu { IP = 0, State = ICCompState.Running }, new ICMemory(code),
+                      input ?? new ICStream(), output ?? new ICStream(),
+                      decoder ?? new ICDecoder());
+
 
     public ICComp Execute()
     {
-        while (ExecuteOne() != ICCompState.Terminated) ;
+        while (this.Cpu.State != ICCompState.Terminated)
+            ExecuteOne();
+
         return this;
     }
 
-    public ICCompState ExecuteOne()
+    public ICComp ExecuteOne()
     {
         if (Cpu.State == ICCompState.Terminated)
             throw new ApplicationException("IntCode computer program terminated");
 
-        ICOperation op = decoder.Decode(Cpu, Memory);
+        ICOperation op = Decoder.Decode(Cpu, Memory);
         op.Exec(this);
-        return this.Cpu.State;
+        return this;
     }
 }
