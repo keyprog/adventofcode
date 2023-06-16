@@ -9,15 +9,15 @@ class ICDecoder
 
         return opCode switch
         {
-            1 => new SumOp(Param.Load3(m, c, p)),
-            2 => new MultiplyOp(Param.Load3(m, c, p)),
-            3 => new InputOp(Param.Load(m, c, p)),
-            4 => new OutputOp(Param.Load(m, c, p)),
-            5 => new JumpIfTrueOp(Param.Load2(m, c, p)),
-            6 => new JumpIfFalseOp(Param.Load2(m, c, p)),
-            7 => new LessThanOp(Param.Load3(m, c, p)),
-            8 => new EqualsOp(Param.Load3(m, c, p)),
-            9 => new RelativeBaseOffsetOp(Param.Load(m, c, p)),
+            1 => new SumOp(ICOpParam.Load3(m, c, p)),
+            2 => new MultiplyOp(ICOpParam.Load3(m, c, p)),
+            3 => new InputOp(ICOpParam.Load(m, c, p)),
+            4 => new OutputOp(ICOpParam.Load(m, c, p)),
+            5 => new JumpIfTrueOp(ICOpParam.Load2(m, c, p)),
+            6 => new JumpIfFalseOp(ICOpParam.Load2(m, c, p)),
+            7 => new LessThanOp(ICOpParam.Load3(m, c, p)),
+            8 => new EqualsOp(ICOpParam.Load3(m, c, p)),
+            9 => new RelativeBaseOffsetOp(ICOpParam.Load(m, c, p)),
             99 => new HaltOp(),
             _ => throw new NotSupportedException($"Unsupported opcode {opCode} at {c.IP - 1}")
         };
