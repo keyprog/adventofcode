@@ -1,5 +1,6 @@
-using NUnit;
 using NUnit.Framework;
+using ic.Comp;
+using ic.Comp.Devices;
 
 namespace ic;
 

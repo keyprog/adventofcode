@@ -1,4 +1,4 @@
-﻿using ic;
+﻿using ic.Comp;
 
 const string sourceFile = "program2.txt";
 

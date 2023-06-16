@@ -1,4 +1,6 @@
-namespace ic;
+using ic.Comp.Devices;
+
+namespace ic.Comp.Operations;
 
 enum ParamMode { Reference = 0, Value = 1, Relative = 2 }
 

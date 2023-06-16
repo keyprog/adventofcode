@@ -1,4 +1,6 @@
-namespace ic;
+using ic.Comp.Operations;
+
+namespace ic.Comp.Devices;
 
 class ICDecoder
 {

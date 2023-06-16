@@ -1,4 +1,4 @@
-namespace ic;
+namespace ic.Comp.Devices;
 
 enum ICCompState { Running, Terminated };
 class ICCpu

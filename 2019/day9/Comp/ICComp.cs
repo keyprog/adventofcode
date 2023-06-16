@@ -1,4 +1,7 @@
-namespace ic;
+using ic.Comp.Devices;
+using ic.Comp.Operations;
+
+namespace ic.Comp;
 
 class ICComp
 {

@@ -1,4 +1,6 @@
-namespace ic;
+using ic.Comp.Devices;
+
+namespace ic.Comp.Operations;
 
 interface ICOperation
 {
