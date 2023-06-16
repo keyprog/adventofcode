@@ -12,17 +12,24 @@ class ICMemory
     {
         get
         {
+            if(address < 0) throw new ApplicationException();
             if (address < memory.Length)
                 return memory[address];
             return 0;
         }
         set
         {
-            if (address > memory.Length)
+            if (address < 0 ) throw new ApplicationException();
+            if (address >= memory.Length)
             {
                 memory = Expand(memory, address);
             }
+            try{
             memory[address] = value;
+            }catch(Exception)
+            {
+                throw new ApplicationException($"Address {address}");
+            }
         }
     }
 

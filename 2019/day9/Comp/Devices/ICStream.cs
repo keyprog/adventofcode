@@ -28,4 +28,12 @@ class ICStream
     {
         writer.WriteLine(string.Join(',', data));
     }
+
+    public void DumpAsAscii(TextWriter writer)
+    {
+        foreach(long c in data)
+        {
+            writer.Write((char) c);
+        }
+    }
 }
