@@ -1,50 +1,26 @@
-﻿Hand[] hands = File.ReadAllLines("input.txt").Select(InputParser.Parse).ToArray();
+﻿Hand[] hands = File.ReadAllLines("input.txt").Select(InputParser.ParseHand).ToArray();
 
-Array.Sort(hands, new HandsComparer());
+Array.Sort(hands, (x, y) => x.Type != y.Type ? x.Type.CompareTo(y.Type) : x.Strength.CompareTo(y.Strength));
 
 int result = hands.Select((hand, i) => (i + 1) * hand.Bid).Sum();
 Console.WriteLine(result);
 
-enum HandType
-{
-    FiveOfAKind = 7, // where all five cards have the same label: AAAAA
-    FourOfAKind = 6, // where four cards have the same label and one card has a different label: AA8AA
-    FullHouse = 5, // where three cards have the same label, and the remaining two cards share a different label: 23332
-    ThreeOfAKind = 4, // where three cards have the same label, and the remaining two cards are each different from any other card in the hand: TTT98
-    TwoPair = 3, // where two cards share one label, two other cards share a second label, and the remaining card has a third label: 23432
-    OnePair = 2, // where two cards share one label, and the other three cards have a different label from the pair and each other: A23A4
-    HighCard = 1, // where all cards' labels are distinct: 23456
-}
 
-class HandsComparer : IComparer<Hand>
-{
-    public int Compare(Hand? x, Hand? y)
-    {
-        if (x is null && y is null) return 0;
-        if (x is null) return -1;
-        if (y is null) return 1;
-        if (x.Type != y.Type)
-            return x.Type.CompareTo(y.Type);
+record Hand(string Cards, int Bid, HandType Type, int Strength);
 
-        for (int i = 0; i < x.Cards.Length; ++i)
-        {
-            int diff = x.GetCardStrength(i).CompareTo(y.GetCardStrength(i));
-            if (diff != 0)
-                return diff;
-        }
-        return 0;
-    }
-}
+enum HandType { FiveOfAKind = 7, FourOfAKind = 6, FullHouse = 5, ThreeOfAKind = 4, TwoPair = 3, OnePair = 2, HighCard = 1 }
+
 class InputParser
 {
-    public static Hand Parse(string line)
+    public static Hand ParseHand(string line)
     {
         string cards = line[..5];
         return new Hand
         (
             Cards: cards,
             Bid: int.Parse(line.AsSpan()[6..]),
-            Type: GetHandTypeWithWildcard(cards.ToCharArray())
+            Type: GetHandTypeWithWildcard(cards.ToCharArray()),
+            Strength: GetStrength(cards)
         );
     }
 
@@ -80,11 +56,7 @@ class InputParser
         };
     }
 
-}
-
-record Hand(string Cards, int Bid, HandType Type)
-{
-    public int GetCardStrength(int i) => GetCardStrength(Cards[i]);
+    private static int GetStrength(string cards) => cards.Aggregate(0, (s, c) => (s << 4) + GetCardStrength(c));
 
     public static int GetCardStrength(char c)
     => c switch
@@ -96,5 +68,4 @@ record Hand(string Cards, int Bid, HandType Type)
         'T' => 10,
         var num => num - '0'
     };
-
 }
