@@ -1,8 +1,8 @@
-﻿Hand[] hands = InputParser.Parse(File.ReadAllLines("input.txt")).ToArray();
+﻿Hand[] hands = File.ReadAllLines("input.txt").Select(InputParser.Parse).ToArray();
 
 Array.Sort(hands, new HandsComparer());
 
-int result = hands.Select((h, i) => (i + 1) * h.Bid).Sum();
+int result = hands.Select((hand, i) => (i + 1) * hand.Bid).Sum();
 Console.WriteLine(result);
 
 enum HandType
@@ -37,18 +37,15 @@ class HandsComparer : IComparer<Hand>
 }
 class InputParser
 {
-    public static IEnumerable<Hand> Parse(string[] lines)
+    public static Hand Parse(string line)
     {
-        foreach (ReadOnlySpan<char> line in lines)
-        {
-            string cards = line[..5].ToString();
-            yield return new Hand
-            (
-                Cards: line[..5].ToString(),
-                Bid: int.Parse(line[6..]),
-                Type: GetHandTypeWithWildcard(cards.ToCharArray())
-            );
-        }
+        string cards = line[..5];
+        return new Hand
+        (
+            Cards: cards,
+            Bid: int.Parse(line.AsSpan()[6..]),
+            Type: GetHandTypeWithWildcard(cards.ToCharArray())
+        );
     }
 
     private static HandType GetHandTypeWithWildcard(char[] cards, char wildcard = 'J')
@@ -97,15 +94,7 @@ record Hand(string Cards, int Bid, HandType Type)
         'Q' => 12,
         'J' => 1,
         'T' => 10,
-        '9' => 9,
-        '8' => 8,
-        '7' => 7,
-        '6' => 6,
-        '5' => 5,
-        '4' => 4,
-        '3' => 3,
-        '2' => 2,
-        _ => throw new NotSupportedException()
+        var num => num - '0'
     };
 
 }
