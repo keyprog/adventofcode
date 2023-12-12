@@ -1,8 +1,8 @@
-﻿long[] time = [34908986];
-long[] distance = [204171312101780];
+﻿//long[] time = [34908986];
+//long[] distance = [204171312101780];
 
-//int[] time = [7, 15, 30];
-//int[] distance = [9, 40, 200];
+int[] time = [7, 15, 30];
+int[] distance = [9, 40, 200];
 
 long result = 1;
 for (int i = 0; i < time.Length; ++i)
