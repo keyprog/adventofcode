@@ -1,6 +1,7 @@
 ﻿string[] lines = File.ReadAllLines("input.txt");
 var map = new Map(Parser.Parse(lines).ToArray(), lines.Length, lines[0].Length);
 Console.WriteLine($"Rocks count: {map.Rocks.Length}");
+Console.WriteLine($"Map {lines.Length}x{lines[0].Length}");
 int rounds = 1000000000;
 List<long> states = [];
 HashSet<long> loads = [];
