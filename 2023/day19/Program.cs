@@ -1,4 +1,4 @@
-﻿var sorter = new Sorter(File.ReadAllLines("input.txt"));
+﻿Sorter sorter = new(File.ReadAllLines("input.txt"));
 
 sorter.Parts.Where(sorter.IsPartAccepted).Sum(p => p.Rating).Print();
 sorter.CalcTotalAccepted().Print();
@@ -85,14 +85,15 @@ class Sorter
     }
 
     private static readonly char[] RuleOps = ['<', '>'];
-    public static Rule ParseRule(string expression)
+    public static Rule ParseRule(string exp)
     {
+        ReadOnlySpan<char> expression = exp;
         int opIndex = expression.IndexOfAny(RuleOps);
         if (opIndex < 0)
-            return Rule.Always(expression);
+            return Rule.Always(exp);
         char category = expression[0];
         int next = expression.IndexOf(':');
-        return new Rule(category, expression[1], int.Parse(expression[2..next]), expression[(next + 1)..]);
+        return new Rule(category, expression[1], int.Parse(expression[2..next]), expression[(next + 1)..].ToString());
     }
 
     public static Part ParsePart(string line)
@@ -104,14 +105,15 @@ class Sorter
 }
 record Part(int X, int M, int A, int S)
 {
-    public static Part Zero = new Part(0, 0, 0, 0);
-    public static Part One = new Part(1, 1, 1, 1);
-    public static Part FourK = new Part(4000, 4000, 4000, 4000);
+    public static Part Zero = new(0, 0, 0, 0);
+    public static Part One = new(1, 1, 1, 1);
+    public static Part FourK = new(4000, 4000, 4000, 4000);
     public static decimal CalcPermutations(Part min, Part max)
     {
         decimal total = (decimal)(max.A - min.A + 1) * (max.M - min.M + 1) * (max.S - min.S + 1) * (max.X - min.X + 1);
         return total > 0 ? total : 0;
     }
+
     public Part With(char category, int value)
         => category switch
         {
@@ -122,8 +124,18 @@ record Part(int X, int M, int A, int S)
             _ => throw new NotSupportedException()
         };
 
-    public int Rating { get { return X + M + A + S; } }
+    public int Get(char category)
+        => category switch
+        {
+            'x' => X,
+            'm' => M,
+            's' => S,
+            'a' => A,
+            _ => throw new NotSupportedException()
+        };
+    public int Rating { get => X + M + A + S; }
 }
+
 record Range(Part Min, Part Max);
 
 record Workflow(string Name, Rule[] Rules)
@@ -138,19 +150,13 @@ record Workflow(string Name, Rule[] Rules)
         throw new ApplicationException($"Missing rules in workflow {Name}");
     }
 }
+
 record Rule(char Category, char Op, int Value, string Success)
 {
     public static Rule Always(string success) => new Rule('a', '*', 0, success);
     public string? Evaluate(Part part)
     {
-        int partValue = Category switch
-        {
-            'x' => part.X,
-            'm' => part.M,
-            'a' => part.A,
-            's' => part.S,
-            _ => throw new NotSupportedException()
-        };
+        int partValue = part.Get(Category);
         bool isSuccess = Op switch
         {
             '<' => partValue < Value,
@@ -159,7 +165,7 @@ record Rule(char Category, char Op, int Value, string Success)
         };
         return isSuccess ? Success : null;
     }
-    
+
     public (Range Match, Range NoMatch) SplitIntoRanges(Part min, Part max)
         => this.Op switch
         {
@@ -169,5 +175,3 @@ record Rule(char Category, char Op, int Value, string Success)
         };
 
 }
-enum Op { Less, More, Always }
-
