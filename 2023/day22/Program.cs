@@ -15,7 +15,7 @@ for(int i=0; i< bricks.Length; ++i)
 
 Array.Sort(bricks, (b1, b2)=>b1.Start.Z.CompareTo(b2.Start.Z));
 bricks.PrintLines();
-Dictionary<int, StatItem> stats = Enumerable.Range(0, bricks.Length).ToDictionary(i => i, i=> new StatItem());
+Dictionary<int, StatItem> bricksRelations = Enumerable.Range(0, bricks.Length).ToDictionary(i => i, i=> new StatItem());
 
 for(int i=0;i<bricks.Length; ++i)
 {
@@ -28,45 +28,46 @@ for(int i=0;i<bricks.Length; ++i)
         bool isUnder =  bricks[i].IsUnder(bricks[j]);
         if(isUnder)
         {
-            stats[i].Above.Add(j);
-            stats[j].Below.Add(i);
+            bricksRelations[i].Above.Add(j);
+            bricksRelations[j].Below.Add(i);
         }        
     }
 }
 
-/*int count = 0;
+int count = 0;
 for(int i=0;i<bricks.Length;++i)
 {
-    if(stats[i].Above.All(b => stats[b].Below.Count > 1))
+    if(bricksRelations[i].Above.All(b => bricksRelations[b].Below.Count > 1))
         count++;
 }
 
-Console.WriteLine(count);*/
+Console.WriteLine("Part 1: " + count);
+
 foreach(var id in Enumerable.Range(0, bricks.Length))
 {
-    Console.WriteLine($"{id} => {string.Join(',', stats[id].Above)}");
+    Console.WriteLine($"{id} => {string.Join(',', bricksRelations[id].Above)}");
 }
 
-int count = 0;
+count = 0;
 HashSet<int> fall = [];
 for(int i = bricks.Length - 1; i>=0; i--)
 {
     fall.Add(i); 
-    foreach(var a in stats[i].Above)  
+    foreach(var a in bricksRelations[i].Above)  
         IterateOnce(a, fall);
 
     count+=fall.Count-1;
     fall.Clear();
 }
-Console.WriteLine(count);
+Console.WriteLine("Part 2: " + count);
 
 void IterateOnce(int from, HashSet<int> toFall)
 {
-    if(stats[from].Below.All(b => toFall.Contains(b)))
+    if(bricksRelations[from].Below.All(b => toFall.Contains(b)))
     {
         toFall.Add(from);
 
-        foreach(var a in stats[from].Above)
+        foreach(var a in bricksRelations[from].Above)
         {
              IterateOnce(a, toFall);
         }
