@@ -1,0 +1,27 @@
+{"kind":{"graph":true},"nodes":[{"id":"qp","label":"qp","color":"green"},{"id":"mq","label":"mq","color":"green"},{"id":"lq","label":"lq","color":"green"},{"id":"jc","label":"jc","color":"red"},{"id":"td","label":"td","color":"green"},{"id":"xs","label":"xs","color":"green"},{"id":"dg","label":"dg","color":"green"},{"id":"km","label":"km","color":"green"},{"id":"zc","label":"zc","color":"green"},{"id":"pz","label":"pz","color":"green"},{"id":"gj","label":"gj","color":"green"},{"id":"zg","label":"zg","color":"green"},{"id":"rd","label":"rd","color":"green"},{"id":"mm","label":"mm","color":"green"},{"id":"th","label":"th","color":"red"},{"id":"gt","label":"gt","color":"green"},{"id":"hm","label":"hm","color":"red"},{"id":"bs","label":"bs","color":"green"},{"id":"cz","label":"cz","color":"green"},{"id":"tl","label":"tl","color":"green"},{"id":"hv","label":"hv","color":"green"},{"id":"ml","label":"ml","color":"green"},{"id":"bc","label":"bc","color":"green"},{"id":"xm","label":"xm","color":"green"},{"id":"vp","label":"vp","color":"green"},{"id":"broadcaster","label":"broadcaster","color":"red"},{"id":"tx","label":"tx","color":"green"},{"id":"qf","label":"qf","color":"green"},{"id":"xt","label":"xt","color":"green"},{"id":"zv","label":"zv","color":"green"},{"id":"vg","label":"vg","color":"green"},{"id":"zz","label":"zz","color":"green"},{"id":"xd","label":"xd","color":"green"},{"id":"kl","label":"kl","color":"green"},{"id":"lx","label":"lx","color":"green"},{"id":"pl","label":"pl","color":"red"},{"id":"bj","label":"bj","color":"green"},{"id":"bf","label":"bf","color":"green"},{"id":"jn","label":"jn","color":"green"},{"id":"zm","label":"zm","color":"green"},{"id":"sv","label":"sv","color":"red"},{"id":"lt","label":"lt","color":"green"},{"id":"xx","label":"xx","color":"green"},{"id":"rg","label":"rg","color":"green"},{"id":"sb","label":"sb","color":"green"},{"id":"ng","label":"ng","color":"green"},{"id":"qh","label":"qh","color":"green"},{"id":"dl","label":"dl","color":"green"},{"id":"dk","label":"dk","color":"green"},{"id":"vn","label":"vn","color":"green"},{"id":"gh","label":"gh","color":"red"},{"id":"nv","label":"nv","color":"green"},{"id":"fd","label":"fd","color":"red"},{"id":"ch","label":"ch","color":"red"},{"id":"cn","label":"cn","color":"red"},{"id":"zq","label":"zq","color":"green"},{"id":"rj","label":"rj","color":"green"},{"id":"jl","label":"jl","color":"green"}],"edges":[{"from":"qp","to":"ng"},{"from":"qp","to":"pl"},{"from":"mq","to":"zz"},{"from":"lq","to":"zg"},{"from":"jc","to":"ch"},{"from":"jc","to":"lx"},{"from":"jc","to":"nv"},{"from":"jc","to":"ml"},{"from":"jc","to":"lq"},{"from":"jc","to":"bs"},{"from":"td","to":"fd"},{"from":"td","to":"jl"},{"from":"xs","to":"td"},{"from":"xs","to":"fd"},{"from":"dg","to":"jc"},{"from":"dg","to":"rd"},{"from":"km","to":"rg"},{"from":"km","to":"hm"},{"from":"zc","to":"gj"},{"from":"pz","to":"qh"},{"from":"pz","to":"fd"},{"from":"gj","to":"dl"},{"from":"zg","to":"jc"},{"from":"zg","to":"vn"},{"from":"rd","to":"jc"},{"from":"mm","to":"xx"},{"from":"mm","to":"hm"},{"from":"th","to":"cn"},{"from":"gt","to":"dk"},{"from":"gt","to":"pl"},{"from":"hm","to":"kl"},{"from":"hm","to":"gh"},{"from":"hm","to":"tl"},{"from":"hm","to":"xx"},{"from":"hm","to":"zq"},{"from":"bs","to":"zv"},{"from":"cz","to":"qp"},{"from":"tl","to":"vg"},{"from":"hv","to":"xd"},{"from":"ml","to":"bs"},{"from":"ml","to":"jc"},{"from":"bc","to":"pl"},{"from":"xm","to":"jc"},{"from":"xm","to":"lx"},{"from":"vp","to":"fd"},{"from":"vp","to":"hv"},{"from":"broadcaster","to":"kl"},{"from":"broadcaster","to":"ml"},{"from":"broadcaster","to":"xs"},{"from":"broadcaster","to":"jn"},{"from":"tx","to":"xt"},{"from":"tx","to":"hm"},{"from":"qf","to":"bf"},{"from":"qf","to":"hm"},{"from":"xt","to":"zq"},{"from":"xt","to":"hm"},{"from":"zv","to":"xm"},{"from":"zv","to":"jc"},{"from":"vg","to":"hm"},{"from":"vg","to":"mm"},{"from":"zz","to":"fd"},{"from":"zz","to":"pz"},{"from":"xd","to":"fd"},{"from":"xd","to":"lt"},{"from":"kl","to":"hm"},{"from":"kl","to":"tx"},{"from":"lx","to":"nv"},{"from":"pl","to":"cz"},{"from":"pl","to":"gj"},{"from":"pl","to":"sb"},{"from":"pl","to":"sv"},{"from":"pl","to":"jn"},{"from":"pl","to":"zc"},{"from":"pl","to":"dl"},{"from":"bj","to":"fd"},{"from":"bf","to":"hm"},{"from":"jn","to":"pl"},{"from":"jn","to":"sb"},{"from":"zm","to":"lq"},{"from":"zm","to":"jc"},{"from":"sv","to":"cn"},{"from":"lt","to":"mq"},{"from":"lt","to":"fd"},{"from":"xx","to":"km"},{"from":"rg","to":"hm"},{"from":"rg","to":"qf"},{"from":"sb","to":"zc"},{"from":"ng","to":"gt"},{"from":"ng","to":"pl"},{"from":"qh","to":"bj"},{"from":"qh","to":"fd"},{"from":"dl","to":"rj"},{"from":"dk","to":"pl"},{"from":"dk","to":"bc"},{"from":"vn","to":"jc"},{"from":"vn","to":"dg"},{"from":"gh","to":"cn"},{"from":"nv","to":"zm"},{"from":"fd","to":"jl"},{"from":"fd","to":"hv"},{"from":"fd","to":"xs"},{"from":"fd","to":"mq"},{"from":"fd","to":"th"},{"from":"ch","to":"cn"},{"from":"cn","to":"rx"},{"from":"zq","to":"tl"},{"from":"rj","to":"cz"},{"from":"rj","to":"pl"},{"from":"jl","to":"vp"}]}
+3947: cn:1;
+7894: cn:1;
+11841: cn:1;
+15788: cn:1;
+19735: cn:1;
+23682: cn:1;
+27629: cn:1;
+31576: cn:1;
+35523: cn:1;
+39470: cn:1;
+43417: cn:1;
+47364: cn:1;
+51311: cn:1;
+55258: cn:1;
+59205: cn:1;
+63152: cn:1;
+67099: cn:1;
+71046: cn:1;
+74993: cn:1;
+78940: cn:1;
+82887: cn:1;
+86834: cn:1;
+90781: cn:1;
+94728: cn:1;
+98675: cn:1;
+100000

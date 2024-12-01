@@ -1,0 +1,19 @@
+Removing: jqt-nvd
+Removing: pzl-rsh
+Removing: qnr-nvd
+Removing: rzs-rsh
+Removing: frs-lhk
+Removing: lsr-rsh
+Removing: bvb-cmg
+Removing: rhn-nvd
+Removing: ntq-xhk
+Removing: lhk-rsh
+Removing: hfx-nvd
+Removing: xhk-nvd
+Removing: nvd-cmg
+2
+rsh/cmg
+cmg/rsh
+(6, 9)
+Total Edges: 66
+Total Nodes: 15
