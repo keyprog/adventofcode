@@ -4,6 +4,8 @@ const TOKEN_MUL: &str = "mul";
 const TOKEN_OPEN_BR: &str = "(";
 const TOKEN_CLOSE_BR: &str = ")";
 const TOKEN_COMMA: &str = ",";
+const TOKEN_DO: &str = "do()";
+const TOKEN_DONT: &str = "don't()";
 
 fn main() {
     let input_file = fs::canonicalize("../input.txt").unwrap();
@@ -21,6 +23,7 @@ fn main() {
     let mut i = 0usize;
     while i < content.len() - expected_token.len() {
         let token = &content[i..i + expected_token.len()];
+
         if token == expected_token {
             println!("Found {token} at {i}");
             i = i + token.len();
@@ -28,7 +31,7 @@ fn main() {
                 TOKEN_MUL => {
                     expected_token = TOKEN_OPEN_BR;
                     mul_start = i - token.len();
-                },
+                }
                 TOKEN_OPEN_BR => {
                     if let (Some(num), len) = parse_num(&content[i..]) {
                         mul1 = num;
@@ -53,17 +56,19 @@ fn main() {
                     let actual_str = format!("mul({mul1},{mul2})");
                     product = product + u64::from(result);
 
-                    if str != actual_str {
-                        println!("!!!!!!!!!!!!!!!!");
-                    }
-                    
                     println!("{actual_str} = {result} from '{str}'");
+                    expected_token = TOKEN_MUL;
+                }
+                TOKEN_DO => {
                     expected_token = TOKEN_MUL;
                 }
                 _ => panic!("Not implemented"),
             }
+        } else if content[i..].starts_with(TOKEN_DONT) {
+            expected_token = TOKEN_DO;
+            i = i + TOKEN_DONT.len();
         } else {
-            if expected_token == TOKEN_MUL {
+            if expected_token == TOKEN_MUL || expected_token == TOKEN_DO {
                 i = i + 1;
             } else {
                 expected_token = TOKEN_MUL;
@@ -79,7 +84,7 @@ const TEN: u32 = 10;
 
 fn parse_num(content: &str) -> (Option<u32>, usize) {
     let mut num: u32 = 0;
-    let mut i:usize  = 0;
+    let mut i: usize = 0;
     let max_len = if content.len() > MAX_NUM_LEN {
         MAX_NUM_LEN
     } else {
